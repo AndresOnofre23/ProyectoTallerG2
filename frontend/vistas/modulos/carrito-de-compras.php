@@ -104,7 +104,7 @@ TABLA CARRITO DE COMPRAS
             <?php
                 if(isset($_SESSION["validarSesion"])){
                     if($_SESSION["validarSesion"]=="ok"){
-                        echo '<a href="#modalCheckout" data-toggle="modal"><button class="btn btn-default backColor btn-lg pull-right">REALIZAR PAGO</button></a>';
+                        echo '<a id="btnCheckout" href="#modalCheckout" data-toggle="modal" idUsuario="'.$_SESSION["id"].'"><button class="btn btn-default backColor btn-lg pull-right">REALIZAR PAGO</button></a>';
                     }
                 }else{
                     echo '<a href="#modalIngreso" data-toggle="modal"><button class="btn btn-default backColor btn-lg pull-right">REALIZAR PAGO</button></a>';
@@ -131,7 +131,21 @@ TABLA CARRITO DE COMPRAS
                     <h3 class="backColor">REALIZAR PAGO</h3>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
 
-                    <div class="contendioCheckout">
+                    <div class="contenidoCheckout">
+
+                    <?php
+                        $respuesta=ControladorCarrito::ctrMostrarTarifas();
+                        echo '<input type="hidden" id="tasaImpuesto" value="'.$respuesta["impuesto"].'">
+                        <input type="hidden" id="envioNacional" value="'.$respuesta["envioNacional"].'">
+                        <input type="hidden" id="envioInternacional" value="'.$respuesta["envioInternacional"].'">
+                        <input type="hidden" id="tasaMinimaNal" value="'.$respuesta["tasaMinimaNal"].'">
+                        <input type="hidden" id="tasaMinimaInt" value="'.$respuesta["tasaMinimaInt"].'">
+                        <input type="hidden" id="tasaPais" value="'.$respuesta["tasaPais"].'">
+                        
+                        ';
+                        
+
+                    ?>
 
                         <div class="formEnvio row">
                             <h4 class="text-center well text-muted text-uppercase">Información de envío</h4>
@@ -195,23 +209,23 @@ TABLA CARRITO DE COMPRAS
                                 <tbody>
                                     <tr>
                                         <td>Subtotal</td>
-                                        <td>USD $20</td>
+                                        <td>USD $<span class="valorSubtotal">0</span></td>
                                     
                                     </tr>
 
                                     <tr>
                                         <td>Envío</td>
-                                        <td>USD $30</td>
+                                        <td>USD $<span class="valorTotalEnvio">0</span></td>
                                     </tr>
 
                                     <tr>
                                         <td>Impuesto</td>
-                                        <td>USD $30</td>
+                                        <td>USD $<span class="valorTotalImpuesto">0</span></td>
                                     </tr>
 
                                     <tr>
                                         <td><strong>Total</strong></td>
-                                        <td><strong>USD $30</strong></td>
+                                        <td>USD $<span class="valorTotalCompra">0</span></td>
                                     </tr>
 
 

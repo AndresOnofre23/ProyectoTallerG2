@@ -13,3 +13,17 @@ CARRITO DE COMPRAS
 .cabeceraCheckout {
     height: 66px;
 }
+
+
+/*=====================================
+CHECKOUT
+======================================*/
+
+.contenidoCheckout,
+.contenidoCheckout .row {
+    padding: 0 20px;
+}
+
+.formEnvio {
+    display: none;
+}

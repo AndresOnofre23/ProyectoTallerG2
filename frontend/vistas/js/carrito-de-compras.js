@@ -1,6 +1,10 @@
-/***********************************
- VISUALIZAR LA CESTA DEL CARRITO DE COMPRAS
- **********************************/
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+VISUALIZAR LA CESTA DEL CARRITO DE COMPRAS
+=============================================*/
 if (localStorage.getItem("cantidadCesta") != null) {
 
     $(".cantidadCesta").html(localStorage.getItem("cantidadCesta"));
@@ -12,11 +16,13 @@ if (localStorage.getItem("cantidadCesta") != null) {
 
 }
 
-
-
-/***********************************
- VISUALIZAR LOS PRODUCTOS EN LA PAGINA CARRITO DE COMPRAS
- **********************************/
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+VISUALIZAR LOS PRODUCTOS EN LA PÁGINA CARRITO DE COMPRAS
+=============================================*/
 
 var listaCarrito = [];
 if (localStorage.getItem("listaProductos") != null) {
@@ -105,9 +111,24 @@ if (localStorage.getItem("listaProductos") != null) {
             '<hr>');
 
 
-        // EVITAR MANIPULAR LA CANTIDAD EN PRODUCTOS VIRTUALES
+        /*=============================================
+		EVITAR MANIPULAR LA CANTIDAD EN PRODUCTOS VIRTUALES
+		=============================================*/
 
         $(".cantidadItem[tipo='virtual']").attr("readonly", "true");
+
+        // /*=============================================
+        // /*=============================================
+        // /*=============================================
+        // /*=============================================
+        // /*=============================================
+        // ACTUALIZAR SUBTOTAL
+        // =============================================*/
+        var precioCarritoCompra = $(".cuerpoCarrito .precioCarritoCompra span");
+
+        cestaCarrito(precioCarritoCompra.length);
+
+        //sumaSubtotales();
 
 
     }
@@ -118,8 +139,13 @@ if (localStorage.getItem("listaProductos") != null) {
     $(".cabeceraCheckout").hide();
 }
 
-
-// AGREGAR AL CARRITO
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+AGREGAR AL CARRITO
+=============================================*/
 
 $(".agregarCarrito").click(function() {
     var idProducto = $(this).attr("idProducto");
@@ -157,20 +183,23 @@ $(".agregarCarrito").click(function() {
         }
     }*/
 
-    //CAPTURAR DETALLES
+    /*=============================================
+	CAPTURAR DETALLES
+	=============================================*/
 
     if (tipo == "virtual" || tipo == "fisico") {
         agregarAlCarrito = true;
     }
 
-    // RECUPERAR ALMACENAMIENTO DEL LOCALSTORAGE
-
-
-    // ALMACENAR EN EL LOCALSTORAGE LOS PRODUCTOS AGREGADOS AL CARRITO
+    /*=============================================
+	ALMACENAR EN EL LOCALSTARGE LOS PRODUCTOS AGREGADOS AL CARRITO
+	=============================================*/
 
     if (agregarAlCarrito) {
 
-        // RECUPERAR ALMACENAMIENTO DEL LOCALSTORAGE
+        /*=============================================
+		RECUPERAR ALMACENAMIENTO DEL LOCALSTORAGE
+		=============================================*/
         if (localStorage.getItem("listaProductos") == null) {
             listaCarrito = [];
         } else {
@@ -212,7 +241,9 @@ $(".agregarCarrito").click(function() {
 
         localStorage.setItem("listaProductos", JSON.stringify(listaCarrito));
 
-        // ACTUALIZAR CESTA
+        /*=============================================
+		ACTUALIZAR LA CESTA
+		=============================================*/
 
         var cantidadCesta = Number($(".cantidadCesta").html()) + 1;
         var sumaCesta = Number($(".sumaCesta").html()) + Number(precio);
@@ -224,7 +255,9 @@ $(".agregarCarrito").click(function() {
         localStorage.setItem("sumaCesta", sumaCesta);
 
 
-        // MOSTRAR ALERTA DE QUE EL PRODUCTO YA FUE AGREGADO
+        /*=============================================
+		MOSTRAR ALERTA DE QUE EL PRODUCTO YA FUE AGREGADO
+		=============================================*/
 
         swal({
                 title: "",
@@ -250,7 +283,13 @@ $(".agregarCarrito").click(function() {
 
 
 
-// QUITAR PRODUCTOS DEL CARRITO
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+QUITAR PRODUCTOS DEL CARRITO
+=============================================*/
 
 $(".quitarItemCarrito").click(function() {
     $(this).parent().parent().parent().remove();
@@ -261,7 +300,9 @@ $(".quitarItemCarrito").click(function() {
     var precio = $(".cuerpoCarrito .precioCarritoCompra span");
     var cantidad = $(".cuerpoCarrito .cantidadItem");
 
-    // SI AUN QUEDAN PRODUCTOS VOLVERLOS AGREGAR AL CARRITO (LOCALSTORAGE)
+    /*=============================================
+	SI AÚN QUEDAN PRODUCTOS VOLVERLOS AGREGAR AL CARRITO (LOCALSTORAGE)
+	=============================================*/
     listaCarrito = [];
     if (idProducto.length != 0) {
         for (var i = 0; i < idProducto.length; i++) {
@@ -288,7 +329,9 @@ $(".quitarItemCarrito").click(function() {
 
     } else {
 
-        // SI YA NO QUEDAN PRODUCTOS HAY QUE REMOVER TODO
+        /*=============================================
+		SI YA NO QUEDAN PRODUCTOS HAY QUE REMOVER TODO
+		=============================================*/
 
         localStorage.removeItem("listaProductos");
 
@@ -304,7 +347,13 @@ $(".quitarItemCarrito").click(function() {
 })
 
 
-// GENERAR SUBTOTAL DESPUES DE CAMBIAR CANTIDAD
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+GENERAR SUBTOTAL DESPUES DE CAMBIAR CANTIDAD
+=============================================*/
 
 $(".cantidadItem").change(function() {
 
@@ -317,7 +366,9 @@ $(".cantidadItem").change(function() {
     $(".subTotal" + idProducto).html('<strong>USD $<span>' + (cantidad * precio) + '</span></strong>');
 
 
-    // ACTUALIZAR LA CANTIDAD EN EL LOCALSTORAGE
+    /*=============================================
+	ACTUALIZAR LA CANTIDAD EN EL LOCALSTORAGE
+	=============================================*/
 
     var idProducto = $(".cuerpoCarrito button");
     var imagen = $(".cuerpoCarrito img");
@@ -376,7 +427,13 @@ for (var i = 0; i < precioCarritoCompra.length; i++) {
 
 }
 
-//SUMA DE TODOS LOS SUBTOTALES
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+SUMA DE TODOS LOS SUBTOTALES
+=============================================*/
 
 function sumaSubtotales() {
 
@@ -410,7 +467,13 @@ function sumaSubtotales() {
 
 }
 
-// ACTUALIZAR CESTA AL CAMBIAR CANTIDAD
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+ACTUALIZAR CESTA AL CAMBIAR CANTIDAD
+=============================================*/
 
 
 function cestaCarrito(cantidadProductos) {
@@ -479,11 +542,11 @@ $("#btnCheckout").click(function() {
     =============================================*/
 
     var impuestoTotal = ($(".valorSubtotal").html() * $("#tasaImpuesto").val()) / 100;
-
+    console.log(impuestoTotal);
     $(".valorTotalImpuesto").html((impuestoTotal).toFixed(2));
     $(".valorTotalImpuesto").attr("valor", (impuestoTotal).toFixed(2));
 
-    sumaTotalCompra()
+    sumaTotalCompra();
 
     /*=============================================
     VARIABLES ARRAY 
@@ -532,5 +595,184 @@ $("#btnCheckout").click(function() {
 
         }
 
+
     }
-});
+
+    /*=============================================
+       EXISTEN PRODUCTOS FÍSICOS
+       =============================================*/
+
+    if (tipoArray.find(checkTipo) == "fisico") {
+        $(".formEnvio").show();
+
+        $(".btnPagar").attr("tipo", "fisico");
+
+        $.ajax({
+            url: rutaOculta + "vistas/js/plugins/countries.json",
+            type: "GET",
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function(respuesta) {
+                respuesta.forEach(seleccionarPais);
+
+                function seleccionarPais(item, index) {
+                    var pais = item.name;
+                    var codPais = item.code;
+                    $("#seleccionarPais").append('<option value="' + codPais + '">' + pais + '</option>');
+
+                }
+            }
+        })
+
+        /*=============================================
+		EVALUAR TASAS DE ENVÍO SI EL PRODUCTO ES FÍSICO
+		=============================================*/
+
+        $("#seleccionarPais").change(function() {
+
+            $(".alert").remove();
+
+            var pais = $(this).val();
+            var tasaPais = $("#tasaPais").val();
+
+            if (pais == tasaPais) {
+
+                var resultadoPeso = sumaTotalPeso * $("#envioNacional").val();
+
+                if (resultadoPeso < $("#tasaMinimaNal").val()) {
+
+                    $(".valorTotalEnvio").html($("#tasaMinimaNal").val());
+                    $(".valorTotalEnvio").attr("valor", $("#tasaMinimaNal").val());
+
+                } else {
+
+                    $(".valorTotalEnvio").html(resultadoPeso);
+                    $(".valorTotalEnvio").attr("valor", resultadoPeso);
+                }
+
+            } else {
+
+                var resultadoPeso = sumaTotalPeso * $("#envioInternacional").val();
+
+                if (resultadoPeso < $("#tasaMinimaInt").val()) {
+
+                    $(".valorTotalEnvio").html($("#tasaMinimaInt").val());
+                    $(".valorTotalEnvio").attr("valor", $("#tasaMinimaInt").val());
+
+                } else {
+
+                    $(".valorTotalEnvio").html(resultadoPeso);
+                    //$(".valorTotalEnvio").attr("valor", resultadoPeso);
+                }
+
+            }
+
+            sumaTotalCompra();
+            //pagarConPayu();
+
+        })
+
+    } else {
+
+        $(".btnPagar").attr("tipo", "virtual");
+    }
+
+})
+
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+SUMA TOTAL DE LA COMPRA
+=============================================*/
+function sumaTotalCompra() {
+
+    var sumaTotalTasas = Number($(".valorSubtotal").html()) +
+        Number($(".valorTotalEnvio").html()) +
+        Number($(".valorTotalImpuesto").html());
+
+    console.log(sumaTotalCompra);
+    $(".valorTotalCompra").html((sumaTotalTasas).toFixed(2));
+    $(".valorTotalCompra").attr("valor", (sumaTotalTasas).toFixed(2));
+
+    // localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
+}
+
+
+
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+BOTÓN PAGAR PAYPAL
+=============================================*/
+
+$(".btnPagar").click(function() {
+
+    var tipo = $(this).attr("tipo");
+
+    if (tipo == "fisico" && $("#seleccionarPais").val() == "") {
+
+        $(".btnPagar").after('<div class="alert alert-warning">No ha seleccionado el país de envío</div>');
+
+        return;
+
+    }
+
+    var divisa = $("#cambiarDivisa").val();
+    var total = $(".valorTotalCompra").html();
+    var totalEncriptado = localStorage.getItem("total");
+    var impuesto = $(".valorTotalImpuesto").html();
+    var envio = $(".valorTotalEnvio").html();
+    var subtotal = $(".valorSubtotal").html();
+    var titulo = $(".valorTitulo");
+    var cantidad = $(".valorCantidad");
+    var valorItem = $(".valorItem");
+    var idProducto = $('.cuerpoCarrito button, .comprarAhora button');
+
+    var tituloArray = [];
+    var cantidadArray = [];
+    var valorItemArray = [];
+    var idProductoArray = [];
+
+    for (var i = 0; i < titulo.length; i++) {
+
+        tituloArray[i] = $(titulo[i]).html();
+        cantidadArray[i] = $(cantidad[i]).html();
+        valorItemArray[i] = $(valorItem[i]).html();
+        idProductoArray[i] = $(idProducto[i]).attr("idProducto");
+
+    }
+
+    var datos = new FormData();
+
+    datos.append("divisa", divisa);
+    datos.append("total", total);
+    datos.append("totalEncriptado", totalEncriptado);
+    datos.append("impuesto", impuesto);
+    datos.append("envio", envio);
+    datos.append("subtotal", subtotal);
+    datos.append("tituloArray", tituloArray);
+    datos.append("cantidadArray", cantidadArray);
+    datos.append("valorItemArray", valorItemArray);
+    datos.append("idProductoArray", idProductoArray);
+
+    $.ajax({
+        url: rutaOculta + "ajax/carrito.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(respuesta) {
+
+            window.location = respuesta;
+
+        }
+
+    })
+
+})
