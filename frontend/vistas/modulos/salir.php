@@ -13,7 +13,7 @@ if(isset($_SESSION['id_token_google']) && !empty($_SESSION['id_token_google'])){
 echo '<script>
 	
 	localStorage.removeItem("usuario");
-	localStorage.clear();
+	// localStorage.clear();
 
 	swal({
 		title: "Has cerrado tu sesión",
