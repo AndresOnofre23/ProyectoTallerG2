@@ -587,7 +587,7 @@ INFOPRODUCTOS
 
 								<div class="col-md-6 col-xs-12">
 									
-									<button class="btn btn-default btn-block btn-lg backColor">
+									<button class="btn btn-default btn-block btn-lg backColor agregarCarrito"  idProducto="'.$infoproducto["id"].'" imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precioOferta"].'" tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'"">
 
 									<small>ADICIONAR AL CARRITO</small> 
 
@@ -600,7 +600,7 @@ INFOPRODUCTOS
 
 							echo '<div class="col-lg-6 col-md-8 col-xs-12">
 									
-									<button class="btn btn-default btn-block btn-lg backColor">
+									<button class="btn btn-default btn-block btn-lg backColor agregarCarrito"  idProducto="'.$infoproducto["id"].'" imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precioOferta"].'" tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'">
 
 									ADICIONAR AL CARRITO 
 

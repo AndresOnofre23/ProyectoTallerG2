@@ -298,7 +298,7 @@ HEADER
 
 			<div class="col-lg-3 col-md-3 col-sm-2 col-xs-12" id="carrito">
 				
-				<a href="#">
+				<a href="<?php echo $url;?>carrito-de-compras">
 
 					<button class="btn btn-default pull-left backColor"> 
 						
