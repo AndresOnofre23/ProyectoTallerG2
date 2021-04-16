@@ -163,7 +163,6 @@ $(".agregarCarrito").click(function() {
         agregarAlCarrito = true;
     } else {
         var seleccionarDetalle = $(".seleccionarDetalle");
-
         for (var i = 0; i < seleccionarDetalle.length; i++) {
             if ($(seleccionarDetalle[i]).val() == "") {
                 swal({
@@ -174,7 +173,6 @@ $(".agregarCarrito").click(function() {
                     confirmButtonColor: "#DD6B55",
                     confirmButtonText: "!Seleccionar!",
                     closeOnConfirme: false
-
                 })
             } else {
                 titulo = titulo + "-" + $(seleccionarDetalle[i]).val();
@@ -664,7 +662,7 @@ $("#btnCheckout").click(function() {
                 } else {
 
                     $(".valorTotalEnvio").html(resultadoPeso);
-                    //$(".valorTotalEnvio").attr("valor", resultadoPeso);
+                    $(".valorTotalEnvio").attr("valor", resultadoPeso);
                 }
 
             }
@@ -701,6 +699,175 @@ function sumaTotalCompra() {
     // localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
 }
 
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+MÉTODO DE PAGO PARA CAMBIO DE DIVISA
+=============================================*/
+
+var metodoPago = "paypal";
+divisas(metodoPago);
+
+$("input[name='pago']").change(function() {
+
+    var metodoPago = $(this).val();
+
+    divisas(metodoPago);
+
+    if (metodoPago == "payu") {
+
+        $(".btnPagar").hide();
+        $(".formPayu").show();
+
+        //pagarConPayu();
+
+    } else {
+
+        $(".btnPagar").show();
+        $(".formPayu").hide();
+
+    }
+
+})
+
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+FUNCION PARA EL CAMBIO DE DIVISA
+=============================================*/
+
+function divisas(metodoPago) {
+
+    $("#cambiarDivisa").html("");
+    if (metodoPago == "paypal") {
+        $("#cambiarDivisa").append('<option value="USD">USD</option>' +
+            '<option value="EUR">EUR</option>' +
+            '<option value="GBP">GBP</option>' +
+            '<option value="MXN">MXN</option>' +
+            '<option value="JPY">JPY</option>' +
+            '<option value="CAD">CAD</option>' +
+            '<option value="BRL">BRL</option>')
+    } else {
+
+        $("#cambiarDivisa").append('<option value="USD">USD</option>' +
+            '<option value="PEN">PEN</option>' +
+            '<option value="COP">COP</option>' +
+            '<option value="MXN">MXN</option>' +
+            '<option value="CLP">CLP</option>' +
+            '<option value="ARS">ARS</option>' +
+            '<option value="BRL">BRL</option>')
+    }
+}
+
+/*=============================================
+/*=============================================
+/*=============================================
+/*=============================================
+CAMBIO DE DIVISA
+=============================================*/
+
+var divisaBase = "USD";
+
+$("#cambiarDivisa").change(function() {
+
+    $(".alert").remove();
+
+    if ($("#seleccionarPais").val() == "") {
+
+        $("#cambiarDivisa").after('<div class="alert alert-warning">No ha seleccionado el país de envío</div>');
+
+        return;
+
+    }
+
+    var divisa = $(this).val();
+
+    $.ajax({
+
+        url: "http://free.currconv.com/api/v7/convert?q=" + divisaBase + "_" + divisa + "&compact=ultra&apiKey=a01ebaf9a1c69eb4ff79",
+        type: "GET",
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "jsonp",
+        success: function(respuesta) {
+
+            var conversion = (respuesta["USD_" + divisa]).toFixed(2);
+
+            $(".cambioDivisa").html(divisa);
+
+            if (divisa == "USD") {
+
+                $(".valorSubtotal").html($(".valorSubtotal").attr("valor"))
+                $(".valorTotalEnvio").html($(".valorTotalEnvio").attr("valor"))
+                $(".valorTotalImpuesto").html($(".valorTotalImpuesto").attr("valor"))
+                $(".valorTotalCompra").html($(".valorTotalCompra").attr("valor"))
+
+                var valorItem = $(".valorItem");
+
+                localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
+
+                for (var i = 0; i < valorItem.length; i++) {
+
+                    $(valorItem[i]).html($(valorItem[i]).attr("valor"));
+
+                }
+
+            } else {
+
+                $(".valorSubtotal").html(
+
+                    Math.ceil(Number(conversion) * Number($(".valorSubtotal").attr("valor")) * 100) / 100
+
+                )
+
+                $(".valorTotalEnvio").html(
+
+                    (Number(conversion) * Number($(".valorTotalEnvio").attr("valor"))).toFixed(2)
+
+                )
+
+                $(".valorTotalImpuesto").html(
+
+                    (Number(conversion) * Number($(".valorTotalImpuesto").attr("valor"))).toFixed(2)
+
+                )
+
+                $(".valorTotalCompra").html(
+
+                    (Number(conversion) * Number($(".valorTotalCompra").attr("valor"))).toFixed(2)
+
+                )
+
+                var valorItem = $(".valorItem");
+
+                localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
+
+                for (var i = 0; i < valorItem.length; i++) {
+
+                    $(valorItem[i]).html(
+
+                        (Number(conversion) * Number($(valorItem[i]).attr("valor"))).toFixed(2)
+
+                    );
+
+                }
+
+            }
+
+            sumaTotalCompra();
+
+            pagarConPayu();
+
+        }
+
+    })
+
+
+
+})
 
 
 /*=============================================
