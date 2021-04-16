@@ -666,6 +666,17 @@ $("#btnCheckout").click(function() {
                 }
 
             }
+            /*=============================================
+            RETORNAR CAMBIO DE DIVISA A USD
+            =============================================*/
+            $("#cambiarDivisa").val("USD");
+            $(".cambioDivisa").html("USD");
+
+            $(".valorSubtotal").html((1 * Number($(".valorSubtotal").attr("valor"))).toFixed(2));
+            $(".valorTotalEnvio").html((1 * Number($(".valorTotalEnvio").attr("valor"))).toFixed(2));
+            $(".valorTotalImpuesto").html((1 * Number($(".valorTotalImpuesto").attr("valor"))).toFixed(2));
+            $(".valorTotalCompra").html((1 * Number($(".valorTotalCompra").attr("valor"))).toFixed(2));
+
 
             sumaTotalCompra();
             //pagarConPayu();
@@ -843,7 +854,7 @@ $("#cambiarDivisa").change(function() {
 
                 var valorItem = $(".valorItem");
 
-                localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
+                // localStorage.setItem("total", hex_md5($(".valorTotalCompra").html()));
 
                 for (var i = 0; i < valorItem.length; i++) {
 

@@ -103,7 +103,7 @@ TOP
 			SOCIAL
 			======================================-->
 
-			<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 social">
+			<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 social">
 				
 				<ul>	
 
@@ -132,7 +132,7 @@ TOP
 			REGISTRO
 			======================================-->
 
-			<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 registro">
+			<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12 registro">
 				
 				<ul>
 
@@ -144,9 +144,13 @@ TOP
 
 						if($_SESSION["modo"] == "directo"){
 
+							
+
 							if($_SESSION["foto"] != ""){
 
-								echo '<li>
+								echo '<li><a href="#modalNosotros" data-toggle="modal">Nosotros</a></li>
+									<li>|</li>
+									<li>
 
 										<img class="img-circle" src="'.$url.$_SESSION["foto"].'" width="10%">
 
@@ -154,25 +158,30 @@ TOP
 
 							}else{
 
-								echo '<li>
+								echo '<li><a href="#modalNosotros" data-toggle="modal">Nosotros</a></li>
+									<li>|</li>
+									<li>
 
 									<img class="img-circle" src="'.$servidor.'vistas/img/usuarios/default/anonymous.png" width="10%">
 
-								</li>';
+									</li>';
 
 							}
 
 							echo '<li>|</li>
 							 <li><a href="'.$url.'perfil">Ver Perfil</a></li>
 							 <li>|</li>
-							 <li><a href="'.$url.'salir">Salir</a></li>';
+							 <li><a href="'.$url.'salir">Salir</a></li>
+							 ';
 
 
 						}
 
 						if($_SESSION["modo"] == "facebook"){
 
-							echo '<li>
+							echo '  <li><a href="#modalNosotros" data-toggle="modal">Nosotros</a></li>
+									<li>|</li>
+									<li>
 
 									<img class="img-circle" src="'.$_SESSION["foto"].'" width="10%">
 
@@ -202,9 +211,12 @@ TOP
 
 				}else{
 
-					echo '<li><a href="#modalIngreso" data-toggle="modal">Ingresar</a></li>
+					echo '<li><a href="#modalNosotros" data-toggle="modal">Nosotros</a></li>
+						<li>|</li>
+						  <li><a href="#modalIngreso" data-toggle="modal">Ingresar</a></li>
 						  <li>|</li>
-						  <li><a href="#modalRegistro" data-toggle="modal">Crear una cuenta</a></li>';
+						  <li><a href="#modalRegistro" data-toggle="modal">Crear una cuenta</a></li>
+						  ';
 
 				}
 
@@ -506,6 +518,55 @@ VENTANA MODAL PARA EL REGISTRO
       
     </div>
 
+</div>
+
+<!--=====================================
+VENTANA MODAL PARA EL NOSOTROS
+======================================-->
+
+<div class="modal fade modalFormulario" id="modalNosotros" role="dialog">
+
+    <div class="modal-content modal-dialog">
+
+        <div class="modal-body modalTitulo">
+
+        	<h3 class="backColor">Visualizar informacion de contacto</h3>
+
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+        	
+			
+		   <div class="container">
+		   <div class="row">
+		   
+		   <div  class="col-sm-9 col-md-7 col-lg-6">
+		   
+			<h4><b>Sobre nosotros</b></h4>
+			<p style="text-align: justify";>Somos una tienda de videojuegos dedicada a la venta de videojuegos en la comunidad Gamer. Tenemos cobertura a nivel nacional gracias a nuestras alianzas estrategicas con distintos couriers lo cual nos permite reducir los costos de envio para cada uno de nuestros clientes.</p>
+			<br>
+			<p style="text-align: justify";>Ofrecemos juegos para PS4,XBox One, Nintendo Switch y Nintedo 3DS completamente nuevos y sellados. Tambien tenemos tarjetas digitales y membresias tanto para las principales consolas de videojuegos como para Steam, League of Legends, Google Play y iTunes.</p>
+			<br>
+			<p style="text-align: justify";>Cada vez que tenemos un nuevo cliente le pedimos nos dejen una recomendacion u opinion en nuestras paginas de Facebook.</p>
+			<br>
+
+			<h4><b>Comunicate con nosotros:</b></h4>
+	
+				<div class="row">
+				<div class="col-sm-12 col-md-6  col-lg-6">
+				<p><b>Central Telefonico:</b> 996712234 / 924012234</p>
+				</div>
+				
+				<div class="col-sm-12 col-md-6 col-lg-6">
+				
+				<p><b>Correo electronico:</b> atencionalcliente@gmail.com</p>
+				</div>	
+		
+				</div>
+		</div>
+		  	
+	</div>	
+	</div>
+        </div>  
+    </div>
 </div>
 
 <!--=====================================
