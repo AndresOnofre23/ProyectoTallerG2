@@ -150,6 +150,8 @@ TOP
 
 								echo '<li><a href="#modalNosotros" data-toggle="modal">Nosotros</a></li>
 									<li>|</li>
+									<li><a href="https://webchat.snatchbot.me/132693a7a1c1b06b4a5ad306fbc552fd0aa0a9db70e7346dab0ae763e9e997e2" target="_blank">Chatbot</a></li>
+									<li>|</li>
 									<li>
 
 										<img class="img-circle" src="'.$url.$_SESSION["foto"].'" width="10%">
@@ -159,6 +161,8 @@ TOP
 							}else{
 
 								echo '<li><a href="#modalNosotros" data-toggle="modal">Nosotros</a></li>
+									<li>|</li>
+									<li><a href="https://webchat.snatchbot.me/132693a7a1c1b06b4a5ad306fbc552fd0aa0a9db70e7346dab0ae763e9e997e2" target="_blank">Chatbot</a></li>
 									<li>|</li>
 									<li>
 
@@ -180,6 +184,8 @@ TOP
 						if($_SESSION["modo"] == "facebook"){
 
 							echo '  <li><a href="#modalNosotros" data-toggle="modal">Nosotros</a></li>
+									<li>|</li>
+									<li><a href="https://webchat.snatchbot.me/132693a7a1c1b06b4a5ad306fbc552fd0aa0a9db70e7346dab0ae763e9e997e2" target="_blank">Chatbot</a></li>
 									<li>|</li>
 									<li>
 

@@ -157,6 +157,89 @@ SCROLL UP
     background: url(../img/plantilla/flecha.jpg);
 }
 
+@media only screen and (max-width:1000px) {
+    #companyinfo {
+        width: 20%
+    }
+    #sitelink {
+        font-size: 30px
+    }
+    #txt5,
+    #txt4 {
+        font-size: 17px
+    }
+    #txt5,
+    .social {
+        position: relative;
+        top: -5px
+    }
+}
+
+@media only screen and (max-width:850px) {
+    #companyinfo {
+        position: relative;
+        left: 3%
+    }
+    #txt6 {
+        position: relative;
+        left: 3%
+    }
+    #txt1,
+    #txt2,
+    #txt3,
+    #txt4,
+    #txt5 {
+        font-size: 15px
+    }
+    #explore {
+        position: relative;
+        top: -240px;
+        left: 26%
+    }
+    #sitelink {
+        font-size: 25px
+    }
+    #detail {
+        font-size: 13px
+    }
+    .link {
+        width: 60px
+    }
+    #visit {
+        position: relative;
+        top: -520px;
+        left: 37%
+    }
+    .text {
+        font-size: 13px
+    }
+    #legal {
+        position: relative;
+        top: -800px;
+        left: 54%
+    }
+    #subscribe {
+        position: relative;
+        top: -1080px;
+        left: 76%;
+        width: 20%
+    }
+    #txt5,
+    .social {
+        position: relative;
+        left: -110%;
+        top: px
+    }
+    #email,
+    .btn {
+        position: relative;
+        top: 0px
+    }
+    #part1 {
+        height: 250px
+    }
+}
+
 
 /*=============================================
 ESCRITORIO GRANDE (LG revisamos en 1366px en adelante)
