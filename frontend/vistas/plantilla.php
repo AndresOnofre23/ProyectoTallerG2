@@ -49,6 +49,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Condensed" rel="stylesheet">
 
 	
+	
 	<!--=====================================
 	HOJAS DE ESTILO PERSONALIZADAS
 	======================================-->
@@ -182,6 +183,7 @@ if(isset($_GET["ruta"])){
 ?>
 
 
+
 <input type="hidden" value="<?php echo $url; ?>" id="rutaOculta">
 <!--=====================================
 JAVASCRIPT PERSONALIZADO
@@ -195,6 +197,7 @@ JAVASCRIPT PERSONALIZADO
 <script src="<?php echo $url; ?>vistas/js/usuarios.js"></script>
 <script src="<?php echo $url; ?>vistas/js/registroFacebook.js"></script>
 <script src="<?php echo $url; ?>vistas/js/carrito-de-compras.js"></script>
+
 
 
 <!--=====================================
