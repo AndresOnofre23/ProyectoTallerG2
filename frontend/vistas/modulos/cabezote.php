@@ -148,10 +148,11 @@ TOP
 
 							if($_SESSION["foto"] != ""){
 
-								echo '<li><a href="#modalNosotros" data-toggle="modal">Nosotros</a></li>
+								echo '<li><a href="https://webchat.snatchbot.me/132693a7a1c1b06b4a5ad306fbc552fd0aa0a9db70e7346dab0ae763e9e997e2" target="_blank">Ayuda</a></li>
 									<li>|</li>
-									<li><a href="https://webchat.snatchbot.me/132693a7a1c1b06b4a5ad306fbc552fd0aa0a9db70e7346dab0ae763e9e997e2" target="_blank">Contacto</a></li>
+									<li><a href="#modalNosotros" data-toggle="modal">Contacto</a></li>
 									<li>|</li>
+									
 									<li>
 
 										<img class="img-circle" src="'.$url.$_SESSION["foto"].'" width="10%">
@@ -160,9 +161,9 @@ TOP
 
 							}else{
 
-								echo '<li><a href="#modalNosotros" data-toggle="modal">Nosotros</a></li>
+								echo '<li><a href="https://webchat.snatchbot.me/132693a7a1c1b06b4a5ad306fbc552fd0aa0a9db70e7346dab0ae763e9e997e2" target="_blank">Ayuda</a></li>
 									<li>|</li>
-									<li><a href="https://webchat.snatchbot.me/132693a7a1c1b06b4a5ad306fbc552fd0aa0a9db70e7346dab0ae763e9e997e2" target="_blank">Contacto</a></li>
+									<li><a href="#modalNosotros" data-toggle="modal">Contacto</a></li>
 									<li>|</li>
 									<li>
 
@@ -183,9 +184,9 @@ TOP
 
 						if($_SESSION["modo"] == "facebook"){
 
-							echo '  <li><a href="#modalNosotros" data-toggle="modal">Nosotros</a></li>
+							echo '  <li><a href="#modalNosotros" data-toggle="modal">Contacto</a></li>
 									<li>|</li>
-									<li><a href="https://webchat.snatchbot.me/132693a7a1c1b06b4a5ad306fbc552fd0aa0a9db70e7346dab0ae763e9e997e2" target="_blank">Contacto</a></li>
+									<li><a href="https://webchat.snatchbot.me/132693a7a1c1b06b4a5ad306fbc552fd0aa0a9db70e7346dab0ae763e9e997e2" target="_blank">Ayuda</a></li>
 									<li>|</li>
 									<li>
 
@@ -217,9 +218,9 @@ TOP
 
 				}else{
 
-					echo '<li><a href="https://webchat.snatchbot.me/132693a7a1c1b06b4a5ad306fbc552fd0aa0a9db70e7346dab0ae763e9e997e2" target="_blank">Contacto</a></li>
+					echo '<li><a href="https://webchat.snatchbot.me/132693a7a1c1b06b4a5ad306fbc552fd0aa0a9db70e7346dab0ae763e9e997e2" target="_blank">Ayuda</a></li>
 							<li>|</li>
-						<li><a href="#modalNosotros" data-toggle="modal">Nosotros</a></li>
+						<li><a href="#modalNosotros" data-toggle="modal">Contacto</a></li>
 						<li>|</li>
 						  <li><a href="#modalIngreso" data-toggle="modal">Ingresar</a></li>
 						  <li>|</li>
