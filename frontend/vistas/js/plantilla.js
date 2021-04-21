@@ -5,29 +5,25 @@ PLANTILLA
 var rutaOculta = $("#rutaOculta").val();
 
 // Herramienta TOOLTIP
-$('[data-toggle="tooltip"]').tooltip();
+$('[data-toggle="tooltip"]').tooltip(); 
 
 $.ajax({
 
-    url: rutaOculta + "ajax/plantilla.ajax.php",
-    success: function(respuesta) {
+	url:rutaOculta+"ajax/plantilla.ajax.php",
+	success:function(respuesta){
 
-        var colorFondo = JSON.parse(respuesta).colorFondo;
-        var colorTexto = JSON.parse(respuesta).colorTexto;
-        var barraSuperior = JSON.parse(respuesta).barraSuperior;
-        var textoSuperior = JSON.parse(respuesta).textoSuperior;
+		var colorFondo = JSON.parse(respuesta).colorFondo;
+		var colorTexto = JSON.parse(respuesta).colorTexto;
+		var barraSuperior = JSON.parse(respuesta).barraSuperior;
+		var textoSuperior = JSON.parse(respuesta).textoSuperior;
+		
+		$(".backColor, .backColor a").css({"background": colorFondo,
+											"color": colorTexto})
 
-        $(".backColor, .backColor a").css({
-            "background": colorFondo,
-            "color": colorTexto
-        })
+		$(".barraSuperior, .barraSuperior a").css({"background": barraSuperior, 
+			                                       "color": textoSuperior})
 
-        $(".barraSuperior, .barraSuperior a").css({
-            "background": barraSuperior,
-            "color": textoSuperior
-        })
-
-    }
+	}
 
 })
 
@@ -37,31 +33,31 @@ CUADRÍCULA O LISTA
 
 var btnList = $(".btnList");
 
-for (var i = 0; i < btnList.length; i++) {
+for(var i = 0; i < btnList.length; i++){
 
-    $("#btnGrid" + i).click(function() {
+	$("#btnGrid"+i).click(function(){
 
-        var numero = $(this).attr("id").substr(-1);
+		var numero = $(this).attr("id").substr(-1);
 
-        $(".list" + numero).hide();
-        $(".grid" + numero).show();
+		$(".list"+numero).hide();
+		$(".grid"+numero).show();
 
-        $("#btnGrid" + numero).addClass("backColor");
-        $("#btnList" + numero).removeClass("backColor");
+		$("#btnGrid"+numero).addClass("backColor");
+		$("#btnList"+numero).removeClass("backColor");
 
-    })
+	})
 
-    $("#btnList" + i).click(function() {
+	$("#btnList"+i).click(function(){
 
-        var numero = $(this).attr("id").substr(-1);
+		var numero = $(this).attr("id").substr(-1);
 
-        $(".list" + numero).show();
-        $(".grid" + numero).hide();
+		$(".list"+numero).show();
+		$(".grid"+numero).hide();
 
-        $("#btnGrid" + numero).removeClass("backColor");
-        $("#btnList" + numero).addClass("backColor");
+		$("#btnGrid"+numero).removeClass("backColor");
+		$("#btnList"+numero).addClass("backColor");
 
-    })
+	})
 
 }
 
@@ -69,34 +65,34 @@ for (var i = 0; i < btnList.length; i++) {
 EFECTOS CON EL SCROLL
 =============================================*/
 
-$(window).scroll(function() {
+$(window).scroll(function(){
 
-    var scrollY = window.pageYOffset;
+	var scrollY = window.pageYOffset;
 
-    if (window.matchMedia("(min-width:768px)").matches) {
+	if(window.matchMedia("(min-width:768px)").matches){
 
-        if ($(".banner").html() != null) {
+		if($(".banner").html() != null){
 
-            if (scrollY < ($(".banner").offset().top) - 150) {
+			if(scrollY < ($(".banner").offset().top)-150){
 
-                $(".banner img").css({ "margin-top": -scrollY / 3 + "px" })
+				$(".banner img").css({"margin-top":-scrollY/3+"px"})
 
-            } else {
+			}else{
 
-                scrollY = 0;
-            }
+				scrollY = 0;
+			}
 
-        }
+		}
 
-    }
-
+	}	
+	
 })
 
 $.scrollUp({
 
-    scrollText: "",
-    scrollSpeed: 2000,
-    easingType: "easeOutQuint"
+	scrollText:"",
+	scrollSpeed: 2000,
+	easingType: "easeOutQuint"
 
 });
 
@@ -106,14 +102,13 @@ MIGAS DE PAN
 
 var pagActiva = $(".pagActiva").html();
 
-if (pagActiva != null) {
+if(pagActiva != null){
 
-    var regPagActiva = pagActiva.replace(/-/g, " ");
+	var regPagActiva = pagActiva.replace(/-/g, " ");
 
-    $(".pagActiva").html(regPagActiva);
+	$(".pagActiva").html(regPagActiva);
 
 }
-
 
 /*=============================================
 ENLACES PAGINACIÓN
@@ -123,14 +118,23 @@ var url = window.location.href;
 
 var indice = url.split("/");
 
-var pagActual = indice[5];
+var pagActual =indice[5];
 
-if (isNaN(pagActual)) {
+if(isNaN(pagActual)){
 
-    $("#item1").addClass("active");
+   $("#item1").addClass("active");
+   
+}else{
 
-} else {
-
-    $("#item" + pagActual).addClass("active");
-
+   $("#item"+pagActual).addClass("active");
+ 
 }
+
+
+
+
+
+
+
+
+

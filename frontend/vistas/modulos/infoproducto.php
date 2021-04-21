@@ -76,7 +76,8 @@ INFOPRODUCTOS
 
 								}
 
-							}	
+							}		
+							    		
 							    						 
 							  echo '</ul>
 
@@ -178,6 +179,48 @@ INFOPRODUCTOS
 				======================================-->
 
 				<?php
+
+					echo '<div class="comprarAhora" style="display:none">
+
+
+						<button class="btn btn-default backColor quitarItemCarrito" idProducto="'.$infoproducto["id"].'" peso="'.$infoproducto["peso"].'"></button>
+
+						<p class="tituloCarritoCompra text-left">'.$infoproducto["titulo"].'</p>';
+
+						if($infoproducto["oferta"] == 0){
+
+							echo'<input class="cantidadItem" value="1" tipo="'.$infoproducto["tipo"].'" precio="'.$infoproducto["precio"].'" idProducto="'.$infoproducto["id"].'">
+
+							<p class="subTotal'.$infoproducto["id"].' subtotales">
+						
+								<strong>USD $<span>'.$infoproducto["precio"].'</span></strong>
+
+							</p>
+
+							<div class="sumaSubTotal"><span>'.$infoproducto["precio"].'</span></div>';
+
+
+						}else{
+
+							echo'<input class="cantidadItem" value="1" tipo="'.$infoproducto["tipo"].'" precio="'.$infoproducto["precioOferta"].'" idProducto="'.$infoproducto["id"].'">
+
+							<p class="subTotal'.$infoproducto["id"].' subtotales">
+						
+								<strong>USD $<span>'.$infoproducto["precioOferta"].'</span></strong>
+
+							</p>
+
+							<div class="sumaSubTotal"><span>'.$infoproducto["precioOferta"].'</span></div>';
+
+
+						}
+
+					
+
+
+
+
+					echo '</div>';
 
 					/*=============================================
 					TITULO
@@ -578,16 +621,29 @@ INFOPRODUCTOS
 
 						if($infoproducto["tipo"]=="virtual"){
 
-							echo '<div class="col-md-6 col-xs-12">
-							
-									<button class="btn btn-default btn-block btn-lg">
-									<small>COMPRAR AHORA</small></button>
+							echo '<div class="col-md-6 col-xs-12">';
 
-								</div>
+							if(isset($_SESSION["validarSesion"])){
+
+								if($_SESSION["validarSesion"] == "ok"){
+
+									echo '<a id="btnCheckout" href="#modalComprarAhora" data-toggle="modal" idUsuario="'.$_SESSION["id"].'"><button class="btn btn-default btn-block btn-lg">
+									<small>COMPRAR AHORA</small></button></a>';
+
+								}
+
+							}else{
+
+								echo '<a href="#modalIngreso" data-toggle="modal"><button class="btn btn-default btn-block btn-lg">
+									<small>COMPRAR AHORA</small></button></a>';
+			
+							}
+
+							echo '</div>
 
 								<div class="col-md-6 col-xs-12">
 									
-									<button class="btn btn-default btn-block btn-lg backColor agregarCarrito"  idProducto="'.$infoproducto["id"].'" imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precioOferta"].'" tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'"">
+									<button class="btn btn-default btn-block btn-lg backColor agregarCarrito"  idProducto="'.$infoproducto["id"].'" imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precio"].'" tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'">
 
 									<small>ADICIONAR AL CARRITO</small> 
 
@@ -600,7 +656,7 @@ INFOPRODUCTOS
 
 							echo '<div class="col-lg-6 col-md-8 col-xs-12">
 									
-									<button class="btn btn-default btn-block btn-lg backColor agregarCarrito"  idProducto="'.$infoproducto["id"].'" imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precioOferta"].'" tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'">
+									<button class="btn btn-default btn-block btn-lg backColor agregarCarrito"  idProducto="'.$infoproducto["id"].'" imagen="'.$servidor.$infoproducto["portada"].'" titulo="'.$infoproducto["titulo"].'" precio="'.$infoproducto["precio"].'" tipo="'.$infoproducto["tipo"].'" peso="'.$infoproducto["peso"].'">
 
 									ADICIONAR AL CARRITO 
 
@@ -642,20 +698,34 @@ INFOPRODUCTOS
 
 			<?php
 
-			$datos = array("idUsuario"=>"",
-						   "idProducto"=>$infoproducto["id"]);
+			// $datos = array("idUsuario"=>"",
+			// 			   "idProducto"=>$infoproducto["id"]);
 
-			$comentarios = ControladorUsuarios::ctrMostrarComentariosPerfil($datos);
-			$cantidad = 0;
+			// $comentarios = ControladorUsuarios::ctrMostrarComentariosPerfil($datos);
+			// $cantidad = 0;
 
-			foreach ($comentarios as $key => $value){
+			// foreach ($comentarios as $key => $value){
 				
-				if($value["comentario"] != ""){
+			// 	if($value["comentario"] != ""){
 
-					$cantidad += count($value["id"]);
+			// 		$cantidad += count($value["id"]);
+					
 
-				}
-			}
+			// 	}
+			// }
+
+			function tieneComentario($value)
+    {
+        return $value["comentario"] != "";
+    }
+
+    $datos = array("idUsuario"=>"",
+                   "idProducto"=>$infoproducto["id"]);
+
+    $comentarios = ControladorUsuarios::ctrMostrarComentariosPerfil($datos);
+    $cantidad = count(array_filter($comentarios, "tieneComentario"));
+
+
 
 			?>
 			
@@ -663,7 +733,8 @@ INFOPRODUCTOS
 
 			<?php
 
-				$cantidadCalificacion = 0;
+				
+			$cantidadCalificacion = 0;
 
 				if($cantidad == 0){
 
@@ -676,14 +747,30 @@ INFOPRODUCTOS
 						  <li><a id="verMas" href="">Ver más</a></li>';
 
 
-				    $sumaCalificacion = 0;
+					// $sumaCalificacion = 0;
 
-					foreach ($comentarios as $key => $value) {
-						
+					// foreach ($comentarios as $key => $value){
+
+					// 	if($value["calificacion"] != 0){
+
+					// 		$cantidadCalificacion += count($value["id"]);
+
+					// 		$sumaCalificacion += $value["calificacion"];
+
+					// 	}
+
+					// }
+						function tieneCalificacion($value){
+							return $value["calificacion"] != 0;
+					}
+
+					$cantidadCalificacion=count(array_filter($comentarios,"tieneCalificacion"));
+
+					$sumaCalificacion = 0;
+
+					foreach ($comentarios as $key => $value){
+
 						if($value["calificacion"] != 0){
-
-							$cantidadCalificacion += count($value["id"]);
-
 							$sumaCalificacion += $value["calificacion"];
 						}
 					}
@@ -1157,6 +1244,191 @@ ARTÏCULOS RELACIONADOS
 		}
 
 		?>
+
+	</div>
+
+</div>
+
+<!--=====================================
+VENTANA MODAL PARA CHECKOUT
+======================================-->
+
+<div id="modalComprarAhora" class="modal fade modalFormulario" role="dialog">
+	
+	 <div class="modal-content modal-dialog">
+	 	
+		<div class="modal-body modalTitulo">
+			
+			<h3 class="backColor">REALIZAR PAGO</h3>
+
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+			<div class="contenidoCheckout">
+
+				<?php
+
+				$respuesta = ControladorCarrito::ctrMostrarTarifas();
+
+				echo '<input type="hidden" id="tasaImpuesto" value="'.$respuesta["impuesto"].'">
+					  <input type="hidden" id="envioNacional" value="'.$respuesta["envioNacional"].'">
+				      <input type="hidden" id="envioInternacional" value="'.$respuesta["envioInternacional"].'">
+				      <input type="hidden" id="tasaMinimaNal" value="'.$respuesta["tasaMinimaNal"].'">
+				      <input type="hidden" id="tasaMinimaInt" value="'.$respuesta["tasaMinimaInt"].'">
+				      <input type="hidden" id="tasaPais" value="'.$respuesta["pais"].'">
+
+				';
+
+				?>
+				
+				<div class="formEnvio row">
+					
+					<h4 class="text-center well text-muted text-uppercase">Información de envío</h4>
+
+					<div class="col-xs-12 seleccionePais">
+						
+						
+
+					</div>
+
+				</div>
+
+				<br>
+
+				<div class="formaPago row">
+					
+					<h4 class="text-center well text-muted text-uppercase">Elige la forma de pago</h4>
+
+					<figure class="col-xs-6">
+						
+						<center>
+							
+							<input id="checkPaypal" type="radio" name="pago" value="paypal" checked>
+
+						</center>	
+						
+						<img src="<?php echo $url; ?>vistas/img/plantilla/paypal.jpg" class="img-thumbnail">		
+
+					</figure>
+
+					<figure class="col-xs-6">
+						
+						<center>
+							
+							<input id="checkPayu" type="radio" name="pago" value="payu">
+
+						</center>
+
+						<img src="<?php echo $url; ?>vistas/img/plantilla/payu.jpg" class="img-thumbnail">
+
+					</figure>
+
+				</div>
+
+				<br>
+
+				<div class="listaProductos row">
+					
+					<h4 class="text-center well text-muted text-uppercase">Productos a comprar</h4>
+
+					<table class="table table-striped tablaProductos">
+						
+						 <thead>
+						 	
+							<tr>		
+								<th>Producto</th>
+								<th>Cantidad</th>
+								<th>Precio</th>
+							</tr>
+
+						 </thead>
+
+						 <tbody>
+						 	
+
+
+						 </tbody>
+
+					</table>
+
+					<div class="col-sm-6 col-xs-12 pull-right">
+						
+						<table class="table table-striped tablaTasas">
+							
+							<tbody>
+								
+								<tr>
+									<td>Subtotal</td>	
+									<td><span class="cambioDivisa">USD</span> $<span class="valorSubtotal" valor="0">0</span></td>	
+								</tr>
+
+								<tr>
+									<td>Envío</td>	
+									<td><span class="cambioDivisa">USD</span> $<span class="valorTotalEnvio" valor="0">0</span></td>	
+								</tr>
+
+								<tr>
+									<td>Impuesto</td>	
+									<td><span class="cambioDivisa">USD</span> $<span class="valorTotalImpuesto" valor="0">0</span></td>	
+								</tr>
+
+								<tr>
+									<td><strong>Total</strong></td>	
+									<td><strong><span class="cambioDivisa">USD</span> $<span class="valorTotalCompra" valor="0">0</span></strong></td>	
+								</tr>
+
+							</tbody>	
+
+						</table>
+
+						 <div class="divisa">
+
+						 	<select class="form-control" id="cambiarDivisa" name="divisa">
+						 		
+							
+
+						 	</select>	
+
+						 	<br>
+
+						 </div>
+
+					</div>
+
+					<div class="clearfix"></div>
+
+					<form class="formPayu" style="display:none">
+					 
+						<input name="merchantId" type="hidden" value=""/>
+						<input name="accountId" type="hidden" value=""/>
+						<input name="description" type="hidden" value=""/>
+						<input name="referenceCode" type="hidden" value=""/>	
+						<input name="amount" type="hidden" value=""/>
+						<input name="tax" type="hidden" value=""/>
+						<input name="taxReturnBase" type="hidden" value=""/>
+						<input name="shipmentValue" type="hidden" value=""/>
+						<input name="currency" type="hidden" value=""/>
+						<input name="lng" type="hidden" value="es"/>
+						<input name="confirmationUrl" type="hidden" value="" />
+						<input name="responseUrl" type="hidden" value=""/>
+						<input name="declinedResponseUrl" type="hidden" value=""/>
+						<input name="displayShippingInformation" type="hidden" value=""/>
+						<input name="test" type="hidden" value="" />
+						<input name="signature" type="hidden" value=""/>
+
+					  <input name="Submit" class="btn btn-block btn-lg btn-default backColor" type="submit"  value="PAGAR" >
+					</form>
+					
+					<button class="btn btn-block btn-lg btn-default backColor btnPagar">PAGAR</button>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="modal-footer">
+      	
+      	</div>
 
 	</div>
 

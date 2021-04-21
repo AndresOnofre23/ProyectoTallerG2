@@ -20,7 +20,7 @@ SLIDESHOW
 
 				<div class="slideOpciones slideOpcion1">
 					
-					<img class="imgProducto" src="http://localhost/backend/vistas/img/slide/slide1/calzado.png" >
+					<img class="imgProducto" src="http://localhost/backend/vistas/img/slide/slide1/calzado.png" style="top:15%; right:10%; width:45%">
 
 					<div class="textosSlide" style="top:20%; left:10%; width:40%">
 						

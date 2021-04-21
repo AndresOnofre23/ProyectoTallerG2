@@ -183,9 +183,7 @@ VENTANA MODAL PARA CHECKOUT
 					<h4 class="text-center well text-muted text-uppercase">Información de envío</h4>
 
 					<div class="col-xs-12 seleccionePais">
-					<select name="" id="seleccionarPais" class="form-control" required>
-                                    <option value="">Seleccione el país</option>
-                                </select>
+						
 						
 
 					</div>
@@ -258,22 +256,22 @@ VENTANA MODAL PARA CHECKOUT
 								
 								<tr>
 									<td>Subtotal</td>	
-									<td><span class="cambioDivisa">USD</span> <span class="valorSubtotal" valor="0">0</span></td>	
+									<td><span class="cambioDivisa">USD</span> $<span class="valorSubtotal" valor="0">0</span></td>	
 								</tr>
 
 								<tr>
 									<td>Envío</td>	
-									<td><span class="cambioDivisa">USD</span> <span class="valorTotalEnvio" valor="0">0</span></td>	
+									<td><span class="cambioDivisa">USD</span> $<span class="valorTotalEnvio" valor="0">0</span></td>	
 								</tr>
 
 								<tr>
 									<td>Impuesto</td>	
-									<td><span class="cambioDivisa">USD</span> <span class="valorTotalImpuesto" valor="0">0</span></td>	
+									<td><span class="cambioDivisa">USD</span> $<span class="valorTotalImpuesto" valor="0">0</span></td>	
 								</tr>
 
 								<tr>
 									<td><strong>Total</strong></td>	
-									<td><strong><span class="cambioDivisa">USD</span> <span class="valorTotalCompra" valor="0">0</span></strong></td>	
+									<td><strong><span class="cambioDivisa">USD</span> $<span class="valorTotalCompra" valor="0">0</span></strong></td>	
 								</tr>
 
 							</tbody>	

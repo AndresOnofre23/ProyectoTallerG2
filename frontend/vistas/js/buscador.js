@@ -2,66 +2,66 @@
 BUSCADOR
 =============================================*/
 
-$("#buscador a").click(function() {
+$("#buscador a").click(function(){
 
-    if ($("#buscador input").val() == "") {
+	if($("#buscador input").val() == ""){
 
-        $("#buscador a").attr("href", "");
+		$("#buscador a").attr("href", "");
 
-    }
+	}
 
 })
 
-$("#buscador input").change(function() {
+$("#buscador input").change(function(){
 
-    var busqueda = $("#buscador input").val();
+	var busqueda = $("#buscador input").val();
 
-    var expresion = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]*$/;
+	var expresion = /^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]*$/;
 
-    if (!expresion.test(busqueda)) {
+	if(!expresion.test(busqueda)){
 
-        $("#buscador input").val("");
+		$("#buscador input").val("");
 
-    } else {
+	}else{
 
-        var evaluarBusqueda = busqueda.replace(/[áéíóúÁÉÍÓÚ ]/g, "_");
+		var evaluarBusqueda = busqueda.replace(/[áéíóúÁÉÍÓÚ ]/g, "_");
 
-        var rutaBuscador = $("#buscador a").attr("href");
+		var rutaBuscador = $("#buscador a").attr("href");
 
-        if ($("#buscador input").val() != "") {
+		if($("#buscador input").val() != ""){
 
-            $("#buscador a").attr("href", rutaBuscador + "/" + evaluarBusqueda);
+			$("#buscador a").attr("href", rutaBuscador+"/"+evaluarBusqueda);
 
-        } else {
-
-
-            $("#buscador a").attr("href", "inicio");
-        }
+		}else{
 
 
+			$("#buscador a").attr("href", "inicio");
+		}
 
 
-    }
+
+
+	}
 
 })
 
 /*=============================================
 BUSCADOR CON ENTER
 =============================================*/
-$("#buscador input").focus(function() {
+$("#buscador input").focus(function(){
 
-    $(document).keyup(function(event) {
+	$(document).keyup(function(event) {
 
-        event.preventDefault();
+		event.preventDefault();
 
-        if (event.keyCode == 13 && $("#buscador input").val() != "") {
+		if(event.keyCode == 13 && $("#buscador input").val() != ""){
 
-            var rutaBuscador = $("#buscador a").attr("href");
+			var rutaBuscador = $("#buscador a").attr("href");
 
-            window.location.href = rutaBuscador;
+			window.location.href = rutaBuscador;
 
-        }
+		}
 
-    })
+	})
 
 })

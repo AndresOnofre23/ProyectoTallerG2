@@ -375,4 +375,30 @@ class ModeloUsuarios{
 
 	}
 
+	/*=============================================
+	INGRESO COMENTARIOS
+	=============================================*/
+
+	static public function mdlIngresoComentarios($tabla, $datos){
+
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla (id_usuario, id_producto) VALUES (:id_usuario, :id_producto)");
+
+		$stmt->bindParam(":id_usuario", $datos["idUsuario"], PDO::PARAM_INT);
+		$stmt->bindParam(":id_producto", $datos["idProducto"], PDO::PARAM_INT);
+
+		if($stmt->execute()){ 
+
+			return "ok"; 
+
+		}else{ 
+
+			return "error"; 
+
+		}
+
+		$stmt->close();
+
+		$tmt =null;
+	}
+
 }

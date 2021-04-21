@@ -36,7 +36,7 @@ class ControladorUsuarios{
 					VERIFICACIÓN CORREO ELECTRÓNICO
 					=============================================*/
 
-					date_default_timezone_set("America/Lima");
+					date_default_timezone_set("America/Bogota");
 
 					$url = Ruta::ctrRuta();	
 
@@ -46,9 +46,9 @@ class ControladorUsuarios{
 
 					$mail->isMail();
 
-					$mail->setFrom('cursos@tutorialesatualcance.com', 'Games 4 Life');
+					$mail->setFrom('cursos@tutorialesatualcance.com', 'Tutoriales a tu Alcance');
 
-					$mail->addReplyTo('cursos@tutorialesatualcance.com', 'Games 4 Life');
+					$mail->addReplyTo('cursos@tutorialesatualcance.com', 'Tutoriales a tu Alcance');
 
 					$mail->Subject = "Por favor verifique su dirección de correo electrónico";
 
@@ -94,7 +94,7 @@ class ControladorUsuarios{
 
 					$envio = $mail->Send();
 
-					/*if(!$envio){
+					if($envio){
 
 						echo '<script> 
 
@@ -116,7 +116,7 @@ class ControladorUsuarios{
 						</script>';
 
 					}else{
-					*/
+
 						echo '<script> 
 
 							swal({
@@ -138,7 +138,7 @@ class ControladorUsuarios{
 
 					}
 
-				
+				}
 
 			}else{
 
@@ -641,7 +641,7 @@ class ControladorUsuarios{
 				list($ancho, $alto) = getimagesize($_FILES["datosImagen"]["tmp_name"]);
 
 				$nuevoAncho = 500;
-				$nuevoAlto = 500;
+				$nuevoAlto = 500;	
 
 				$aleatorio = mt_rand(100, 999);
 
@@ -652,7 +652,6 @@ class ControladorUsuarios{
 					/*=============================================
 					MOFICAMOS TAMAÑO DE LA FOTO
 					=============================================*/
-
 
 					$origen = imagecreatefromjpeg($_FILES["datosImagen"]["tmp_name"]);
 
@@ -698,14 +697,11 @@ class ControladorUsuarios{
 
 			}
 
-			
-
 			$datos = array("nombre" => $_POST["editarNombre"],
 						   "email" => $_POST["editarEmail"],
 						   "password" => $password,
 						   "foto" => $ruta,
 						   "id" => $_POST["idUsuario"]);
-
 
 			$tabla = "usuarios";
 
