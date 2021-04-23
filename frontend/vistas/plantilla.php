@@ -205,10 +205,10 @@ https://developers.facebook.com/
 <script>
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '307504983059062',
+      appId      : '306633450820904',
       cookie     : true,
       xfbml      : true,
-      version    : 'v2.10'
+      version    : 'v10.0'
     });
       
     FB.AppEvents.logPageView();   

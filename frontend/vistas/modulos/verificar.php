@@ -4,6 +4,9 @@ VERIFICAR
 
 <?php
 
+	if(!isset($rutas[1]) || empty($rutas[1])){
+		echo '<script>window.location = "' .$url . '"</script>';
+	}
 	$usuarioVerificado = false;
 	
 	$item = "EmailEncriptado";

@@ -8,7 +8,7 @@ class Ruta{
 
 	public function ctrRuta(){
 
-		return "http://localhost/ProyectoTallerG2/frontend/";
+		return "https://localhost/frontend/";
 	
 	}
 
@@ -18,7 +18,7 @@ class Ruta{
 
 	public function ctrRutaServidor(){
 
-		return "http://localhost/ProyectoTallerG2/backend/";
+		return "https://localhost/backend/";
 	
 	}
 

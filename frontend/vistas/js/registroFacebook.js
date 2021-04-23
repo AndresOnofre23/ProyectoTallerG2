@@ -2,13 +2,13 @@
 BOTÓN FACEBOOK
 =============================================*/
 
-$(".facebook").click(function(){
+$(".facebook").click(function() {
 
-	FB.login(function(response){
+    FB.login(function(response) {
 
-		validarUsuario();
+        validarUsuario();
 
-	}, {scope: 'public_profile, email'})
+    }, { scope: 'public_profile, email' })
 
 })
 
@@ -16,13 +16,13 @@ $(".facebook").click(function(){
 VALIDAR EL INGRESO
 =============================================*/
 
-function validarUsuario(){
+function validarUsuario() {
 
-	FB.getLoginStatus(function(response){
+    FB.getLoginStatus(function(response) {
 
-		statusChangeCallback(response);
+        statusChangeCallback(response);
 
-	})
+    })
 
 }
 
@@ -30,29 +30,29 @@ function validarUsuario(){
 VALIDAMOS EL CAMBIO DE ESTADO EN FACEBOOK
 =============================================*/
 
-function statusChangeCallback(response){
+function statusChangeCallback(response) {
 
-	if(response.status === 'connected'){
+    if (response.status === 'connected') {
 
-		testApi();
+        testApi();
 
-	}else{
+    } else {
 
-		swal({
-          title: "¡ERROR!",
-          text: "¡Ocurrió un error al ingresar con Facebook, vuelve a intentarlo!",
-          type: "error",
-          confirmButtonText: "Cerrar",
-          closeOnConfirm: false
-      	},
+        swal({
+                title: "¡ERROR!",
+                text: "¡Ocurrió un error al ingresar con Facebook, vuelve a intentarlo!",
+                type: "error",
+                confirmButtonText: "Cerrar",
+                closeOnConfirm: false
+            },
 
-      	function(isConfirm){
-           	if (isConfirm) {    
-              	window.location = localStorage.getItem("rutaActual");
-            } 
-      	});
+            function(isConfirm) {
+                if (isConfirm) {
+                    window.location = localStorage.getItem("rutaActual");
+                }
+            });
 
-	}
+    }
 
 }
 
@@ -60,102 +60,106 @@ function statusChangeCallback(response){
 INGRESAMOS A LA API DE FACEBOOK
 =============================================*/
 
-function testApi(){
+function testApi() {
 
-	FB.api('/me?fields=id,name,email,picture',function(response){
+    FB.api('/me?fields=id,name,email,picture.width(150).height(150)', function(response) {
 
-		if(response.email == null){
+        if (response.email == null) {
 
-			swal({
-	          title: "¡ERROR!",
-	          text: "¡Para poder ingresar al sistema debe proporcionar la información del correo electrónico!",
-	          type: "error",
-	          confirmButtonText: "Cerrar",
-	          closeOnConfirm: false
-	      	},
+            swal({
+                    title: "¡ERROR!",
+                    text: "¡Para poder ingresar al sistema debe proporcionar la información del correo electrónico!",
+                    type: "error",
+                    confirmButtonText: "Cerrar",
+                    closeOnConfirm: false
+                },
 
-	      	function(isConfirm){
-	           	if (isConfirm) {    
-	              	window.location = localStorage.getItem("rutaActual");
-	            } 
-	      	});
+                function(isConfirm) {
+                    if (isConfirm) {
+                        window.location = localStorage.getItem("rutaActual");
+                    }
+                });
 
-		}else{
+        } else {
 
-			var email = response.email;
-			var nombre = response.name;
-			var foto = "http://graph.facebook.com/"+response.id+"/picture?type=large";
+            var email = response.email;
+            var nombre = response.name;
+            // var foto = "http://graph.facebook.com/" + response.id + "/picture?type=large";
 
-			var datos = new FormData();
-			datos.append("email", email);
-			datos.append("nombre",nombre);
-			datos.append("foto",foto);
+            var foto = response.picture.data.url;
 
-			$.ajax({
+            var datos = new FormData();
+            datos.append("email", email);
+            datos.append("nombre", nombre);
+            datos.append("foto", foto);
 
-				url:rutaOculta+"ajax/usuarios.ajax.php",
-				method:"POST",
-				data:datos,
-				cache:false,
-				contentType:false,
-				processData:false,
-				success:function(respuesta){
-					
-					if(respuesta == "ok"){
+            //Enviamos una solicitud AJAX
+            $.ajax({
 
-						window.location = localStorage.getItem("rutaActual");
-					
-					}else{
+                url: rutaOculta + "ajax/usuarios.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(respuesta) {
 
-						swal({
-				          title: "¡ERROR!",
-				          text: "¡El correo electrónico "+email+" ya está registrado con un método diferente a Facebook!",
-				          type: "error",
-				          confirmButtonText: "Cerrar",
-				          closeOnConfirm: false
-				      	},
+                    //En caso el cliente tuvo exito en el registro ,se actualiza la pagina con sus datos de facebook
+                    if (respuesta == "ok") {
 
-				      	function(isConfirm){
-				           	if (isConfirm) {    
-				              
-			           		 FB.getLoginStatus(function(response){
+                        window.location = localStorage.getItem("rutaActual");
 
-			           		 	 if(response.status === 'connected'){     
+                    } else {
+                        //En caso el cliente este registrado usando el mismo correo 
+                        swal({
+                                title: "¡ERROR!",
+                                text: "¡El correo electrónico " + email + " ya está registrado con un método diferente a Facebook!",
+                                type: "error",
+                                confirmButtonText: "Cerrar",
+                                closeOnConfirm: false
+                            },
 
-			           		 	 	FB.logout(function(response){
+                            function(isConfirm) {
+                                if (isConfirm) {
 
-			           		 	 		deleteCookie("fblo_307504983059062");
+                                    FB.getLoginStatus(function(response) {
 
-			           		 	 		setTimeout(function(){
+                                        if (response.status === 'connected') {
 
-			           		 	 			window.location=rutaOculta+"salir";
+                                            FB.logout(function(response) {
 
-			           		 	 		},500)
+                                                deleteCookie("fblo_306633450820904");
 
-			           		 	 	});
+                                                setTimeout(function() {
 
-			           		 	 	function deleteCookie(name){
+                                                    window.location = rutaOculta + "salir";
 
-			           		 	 		 document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                                                }, 500)
 
-			           		 	 	}
+                                            });
 
-			           		 	 }
+                                            function deleteCookie(name) {
 
-			           		 })
+                                                document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 
-				            } 
-				      	});
+                                            }
 
-					}
+                                        }
 
-				}
+                                    })
 
-			})
+                                }
+                            });
 
-		}
+                    }
 
-	})
+                }
+
+            })
+
+        }
+
+    })
 
 }
 
@@ -163,36 +167,36 @@ function testApi(){
 SALIR DE FACEBOOK
 =============================================*/
 
-$(".salir").click(function(e){
+$(".salir").click(function(e) {
 
-	e.preventDefault();
+    e.preventDefault();
 
-	 FB.getLoginStatus(function(response){
+    FB.getLoginStatus(function(response) {
 
-	 	 if(response.status === 'connected'){     
-	 	 
-	 	 	FB.logout(function(response){
+        if (response.status === 'connected') {
 
-	 	 		deleteCookie("fblo_307504983059062");
+            FB.logout(function(response) {
 
-	 	 		console.log("salir");
+                deleteCookie("fblo_306633450820904");
 
-	 	 		setTimeout(function(){
+                console.log("salir");
 
-	 	 			window.location=rutaOculta+"salir";
+                setTimeout(function() {
 
-	 	 		},500)
+                    window.location = rutaOculta + "salir";
 
-	 	 	});
+                }, 500)
 
-	 	 	function deleteCookie(name){
+            });
 
-	 	 		 document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+            function deleteCookie(name) {
 
-	 	 	}
+                document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 
-	 	 }
+            }
 
-	 })
+        }
+
+    })
 
 })

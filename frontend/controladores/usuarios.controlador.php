@@ -8,14 +8,17 @@ class ControladorUsuarios{
 
 	public function ctrRegistroUsuario(){
 
-		if(isset($_POST["regUsuario"])){
+		if(isset($_POST["regUsuario"])){//Si viene informacion de Registro de usuario
 
+			//Al igual que en java script "preg_match" nos sirve para validar,los parametros que se incluyen son: primero va la expresion regular y luego la variable POST
 			if(preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["regUsuario"]) &&
 			   preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["regEmail"]) &&
 			   preg_match('/^[a-zA-Z0-9]+$/', $_POST["regPassword"])){
 
+				//crypt ,contraseña (variable post y el parametro salt modo blowfish)
 			   	$encriptar = crypt($_POST["regPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 
+				//encripta el email en alfanumerico
 			   	$encriptarEmail = md5($_POST["regEmail"]);
 
 				$datos = array("nombre"=>$_POST["regUsuario"],
@@ -36,7 +39,7 @@ class ControladorUsuarios{
 					VERIFICACIÓN CORREO ELECTRÓNICO
 					=============================================*/
 
-					date_default_timezone_set("America/Bogota");
+					date_default_timezone_set("America/Lima");
 
 					$url = Ruta::ctrRuta();	
 
@@ -46,19 +49,27 @@ class ControladorUsuarios{
 
 					$mail->isMail();
 
-					$mail->setFrom('cursos@tutorialesatualcance.com', 'Tutoriales a tu Alcance');
+					//Desde donde se envia el mensaje y el nombre de la empresa
+					$mail->setFrom('games4life@gmail.com', 'Games 4 Life');
 
-					$mail->addReplyTo('cursos@tutorialesatualcance.com', 'Tutoriales a tu Alcance');
+					//A donde se va a responder el correo
+					$mail->addReplyTo('games4life@gmail.com', 'Games 4 Life');
 
+					//Contenido del correo 
 					$mail->Subject = "Por favor verifique su dirección de correo electrónico";
 
+					//A cual correo del cliente se va a enviar 
 					$mail->addAddress($_POST["regEmail"]);
 
+					//Plantilla html del correo
+					/*
+					https://localhost/frontend/plantillas-correo/plantilla-verificar-correo.html
+					 */
 					$mail->msgHTML('<div style="width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px">
 						
 						<center>
 							
-							<img style="padding:20px; width:10%" src="http://tutorialesatualcance.com/tienda/logo.png">
+							<img style="padding:20px; width:10%" src="../../backend/vistas/img/plantilla/logo.jpg">
 
 						</center>
 
@@ -66,7 +77,7 @@ class ControladorUsuarios{
 						
 							<center>
 							
-							<img style="padding:20px; width:15%" src="http://tutorialesatualcance.com/tienda/icon-email.png">
+							<img style="padding:20px; width:15%" src="../vistas/img/plantilla/icon-email.png">
 
 							<h3 style="font-weight:100; color:#999">VERIFIQUE SU DIRECCIÓN DE CORREO ELECTRÓNICO</h3>
 
@@ -94,7 +105,7 @@ class ControladorUsuarios{
 
 					$envio = $mail->Send();
 
-					if($envio){
+					if(!$envio){
 
 						echo '<script> 
 
@@ -142,8 +153,12 @@ class ControladorUsuarios{
 
 			}else{
 
-				echo '<script> 
+				/*Ahora en el caso que haya rellenado mal el formulario */
+				
 
+				//function(isConfirm) si confirma la alerta regresa a la pagina anterior
+				echo '<script> 
+						
 						swal({
 							  title: "¡ERROR!",
 							  text: "¡Error al registrar el usuario, no se permiten caracteres especiales!",
@@ -153,7 +168,7 @@ class ControladorUsuarios{
 							},
 
 							function(isConfirm){
-
+								
 								if(isConfirm){
 									history.back();
 								}
@@ -203,6 +218,7 @@ class ControladorUsuarios{
 
 		if(isset($_POST["ingEmail"])){
 
+			//Al igual que en java script "preg_match" nos sirve para validar, primero va la expresion regular y luego la variable POST
 			if(preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $_POST["ingEmail"]) &&
 			   preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])){
 
@@ -237,7 +253,7 @@ class ControladorUsuarios{
 							</script>';
 
 					}else{
-
+						//variables de session
 						$_SESSION["validarSesion"] = "ok";
 						$_SESSION["id"] = $respuesta["id"];
 						$_SESSION["nombre"] = $respuesta["nombre"];
@@ -246,6 +262,8 @@ class ControladorUsuarios{
 						$_SESSION["password"] = $respuesta["password"];
 						$_SESSION["modo"] = $respuesta["modo"];
 
+
+						//el usuario se mantiene en la pagina actual y mantiene los datos el localstorage
 						echo '<script>
 							
 							window.location = localStorage.getItem("rutaActual");
@@ -322,7 +340,7 @@ class ControladorUsuarios{
 					$key = "";
 					$pattern = "1234567890abcdefghijklmnopqrstuvwxyz";
 
-					$max = strlen($pattern)-1;
+					$max = strlen($pattern)-1;//calculamos la longitud max de pattern
 
 					for($i = 0; $i < $longitud; $i++){
 
@@ -359,7 +377,7 @@ class ControladorUsuarios{
 						CAMBIO DE CONTRASEÑA
 						=============================================*/
 
-						date_default_timezone_set("America/Bogota");
+						date_default_timezone_set("America/Lima");
 
 						$url = Ruta::ctrRuta();	
 
@@ -369,19 +387,29 @@ class ControladorUsuarios{
 
 						$mail->isMail();
 
-						$mail->setFrom('cursos@tutorialesatualcance.com', 'Tutoriales a tu Alcance');
+						
+						//Desde donde se envia el mensaje y el nombre de la empresa
+						$mail->setFrom('games4life@gmail.com', 'Games 4 Life');
 
-						$mail->addReplyTo('cursos@tutorialesatualcance.com', 'Tutoriales a tu Alcance');
+						//A donde se va a responder el correo
+						$mail->addReplyTo('games4life@gmail.com', 'Games 4 Life');
 
+						//Contenido del correo
 						$mail->Subject = "Solicitud de nueva contraseña";
 
+						//A cual correo se va a enviar el correo del cliente
 						$mail->addAddress($_POST["passEmail"]);
+
+						//Plantilla html del correo
+						/*
+							https://localhost/frontend/plantillas-correo/plantilla-cambio-password.html
+					 	*/
 
 						$mail->msgHTML('<div style="width:100%; background:#eee; position:relative; font-family:sans-serif; padding-bottom:40px">
 	
 								<center>
 									
-									<img style="padding:20px; width:10%" src="http://tutorialesatualcance.com/tienda/logo.png">
+									<img style="padding:20px; width:10%" src="../../backend/vistas/img/plantilla/logo.jpg">
 
 								</center>
 
@@ -389,7 +417,7 @@ class ControladorUsuarios{
 								
 									<center>
 									
-									<img style="padding:20px; width:15%" src="http://tutorialesatualcance.com/tienda/icon-pass.png">
+									<img style="padding:20px; width:15%" src="../vistas/img/plantilla/icon-email.png">
 
 									<h3 style="font-weight:100; color:#999">SOLICITUD DE NUEVA CONTRASEÑA</h3>
 
@@ -525,10 +553,12 @@ class ControladorUsuarios{
 		$valor = $datos["email"];
 		$emailRepetido = false;
 
+		//Modelo para verificar si esta registrado el usuario
 		$respuesta0 = ModeloUsuarios::mdlMostrarUsuario($tabla, $item, $valor);
 
 		if($respuesta0){
 
+			//Si ya esta registrado con facebook o de modo directo
 			if($respuesta0["modo"] != $datos["modo"]){
 
 				echo '<script> 
@@ -558,12 +588,14 @@ class ControladorUsuarios{
 
 		}else{
 
+			//Se registra en google
 			$respuesta1 = ModeloUsuarios::mdlRegistroUsuario($tabla, $datos);
 
 		}
 
 		if($emailRepetido || $respuesta1 == "ok"){
 
+			//Modelo para verificar si esta registrado el usuario
 			$respuesta2 = ModeloUsuarios::mdlMostrarUsuario($tabla, $item, $valor);
 
 			if($respuesta2["modo"] == "facebook"){
